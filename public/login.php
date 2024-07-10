@@ -36,7 +36,7 @@ if (!$result) {
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>ログイン</title>
 </head>
-<body bgcolor="white">
+<body bgcolor="skyblue">
 <h2>ログイン</h2>
 <p>ログインしました</p><br>
 

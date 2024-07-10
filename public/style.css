@@ -25,3 +25,11 @@
   #tab2:checked ~ .panel_area #panel2{display:block;}
   #tab3:checked ~ .tab_area .tab3_label{background:#fff; color:#000;}
   #tab3:checked ~ .panel_area #panel3{display:block;}
+
+  header {
+    display: flex;
+    width: 200%;
+    height: 60px;
+    background-color: rgb(106, 200, 200);
+    align-items: center;
+  }

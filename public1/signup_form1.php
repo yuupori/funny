@@ -49,7 +49,7 @@ unset($_SESSION['login_err']);
     <input type="submit" value="新規登録">
   </p>
   </form>
-  <a href="login_form.php">ログイン画面はこちら</a><br>
+  <a href="login_form1.php">ログイン画面はこちら</a><br>
   <a href="../public/start.php">ホーム画面に戻る</a>
   
 </body>

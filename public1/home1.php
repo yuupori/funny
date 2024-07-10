@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../classes/UserLogic1.php';
-require_once '../functions.php';
+require_once '../functions1.php';
 
 //　ログインしているか判定し、していなかったら新規登録画面へ返す
 $result = UserLogic::checkLogin();
@@ -12,7 +12,7 @@ if (!$result) {
   return;
 }
 
-$login_user = $_SESSION['login_gomi'];
+$login_user = $_SESSION['login_gomi1'];
 
 
 ?>

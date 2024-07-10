@@ -1,11 +1,11 @@
 <?php
 session_start();
-require_once '../classes/UserLogic.php';
+require_once '../classes/UserLogic1.php';
 
 
 $result = UserLogic::checkLogin();
 if($result) {
-  header('Location: home.php');
+  header('Location: home1.php');
   return;
 }
 
@@ -26,7 +26,7 @@ session_destroy();
     <link rel="stylesheet" href="style.css">
     <title>Funny-Gommy</title>
 </head>
-<body bgcolor="purple">
+<body bgcolor="skyblue">
 
 
 
@@ -63,7 +63,7 @@ session_destroy();
         <?php endif; ?>
         </p>
         <p>
-        <input type="submit" value="ログイン">
+        <input type="submit" value="ログイン1">
         </p>
                     
                     
