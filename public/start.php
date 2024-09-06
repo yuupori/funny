@@ -17,7 +17,6 @@ session_destroy();
  ?>
 
 
-
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -102,16 +101,18 @@ session_destroy();
             
             
           
-        
+        <br><br><br><br><br>
       
       <!-- Header End -->
 
-
+      
   
     
 
 
-  
+ 
     
 </body>
+
+  
 </html>

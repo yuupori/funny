@@ -60,7 +60,11 @@ $login_user = $_SESSION['login_gomi'];
     <form action="logout.php" method="POST">
                         <input type="submit" name="logout" value="ログアウト">
                         </form>
-                        
+<br><br>
+<a href="analysis.php">分析</a>
 
+<script>document.addEventListener('DOMContentLoaded', (event) => {
+    console.log(`DOMContentLoadedイベントが発生しました。`);
+});</script>
 </body>
 </html>

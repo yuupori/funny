@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><style>html, body, #map { width: 100%; height: 100%; }</style></head>
+<head><style>html, body, #map { width: 100%; height: 90%; }</style></head>
 <body>
 <div id="map"></div>
 
@@ -47,6 +47,7 @@ function initMap() {
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBo2VNB_ibg1-_1E_dAbkOFMUW5iCPQwuU&callback=initMap" async defer></script>
 
+<button>回収ルート</button>
 
 </body>
 </html>
