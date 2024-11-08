@@ -1,36 +1,426 @@
-.table {
-    border-collapse: collapse;
+/* 色の変数定義 */
+:root {
+    --primary-color: #0066cc;
+    --primary-hover-color: #004999;
+    --secondary-color: #e74c3e;
+    --background-color: #ecf0f1;
+    --text-color: #2c3e50;
+    --light-bg-color: #f9f9f9;
+    --white: #fff;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --hover-shadow-color: rgba(0, 0, 0, 0.2);
+    --font-family: "Arial", sans-serif;
   }
-    th, td {
-    border: 1px solid #333;
-    }
   
-  .logfo {
-    margin-left: 400px;
+  /* リセット */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
   }
-
-  .tab_wrap{width:700px; margin:100px auto;}
-  input[type="radio"]{display:none;}
-  .tab_area{font-size:0; margin:10 10px;}
-  .tab_area label{width:300px; margin:0 5px; display:inline-block; padding:10px 0; color:#999; background:#ddd; text-align:center; font-size:13px; cursor:pointer; transition:ease 0.2s opacity;}
-  .tab_area label:hover{opacity:0.5;}
-  .panel_area{background:#fff;}
-  .tab_panel{width:80%; padding:50px 0; display:none;}
-  .tab_panel p{font-size:14px; letter-spacing:1px; text-align:center;}
   
+  body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
   
-  #tab1:checked ~ .tab_area .tab1_label{background:#fff; color:#000;}
-  #tab1:checked ~ .panel_area #panel1{display:block;}
-  #tab2:checked ~ .tab_area .tab2_label{background:#fff; color:#000;}
-  #tab2:checked ~ .panel_area #panel2{display:block;}
-  #tab3:checked ~ .tab_area .tab3_label{background:#fff; color:#000;}
-  #tab3:checked ~ .panel_area #panel3{display:block;}
-
-  header {
+  /* 共通のCTAボタンスタイル */
+  .cta-button {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: var(--primary-hover-color);
+  }
+  
+  /* ヘッダー */
+  .header {
+    background: url("https://i.pinimg.com/564x/13/ac/c0/13acc0a3b15b8c8ee366a35be7ece834.jpg")
+      no-repeat center center/cover;
+    height: 60vh;
     display: flex;
-    width: 200%;
-    height: 60px;
-    background-color: rgb(106, 200, 200);
+    justify-content: center;
     align-items: center;
+    color: var(--white);
+    text-align: center;
   }
-
+  
+  .header h1 {
+    font-size: 5rem;
+  }
+  
+  .header p {
+    font-size: 1.5rem;
+    margin-top: 10px;
+  }
+  
+  /* フィーチャーセクション */
+  .features {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--white);
+  }
+  
+  .features h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  /* カードセクション */
+  .card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    max-width: 100%;
+  }
+  
+  .card {
+    background: var(--white);
+    border-radius: 15px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    margin: 20px;
+    width: calc(33% - 40px);
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    padding: 30px;
+  }
+  
+  .card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 30px var(--hover-shadow-color);
+  }
+  
+  .card-inner .imgBox img {
+    width: 100%;
+    height: auto;
+    border-bottom: 5px solid var(--secondary-color);
+  }
+  
+  .content {
+    padding: 20px;
+    text-align: center;
+  }
+  
+  .text-large {
+    font-size: 1.2rem; /* 大きいサイズ */
+  }
+  
+  /* クライアントロゴセクション */
+  .client-logos {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--light-bg-color);
+  }
+  
+  .client-logos h2 {
+    margin-bottom: 20px;
+    font-size: 2rem;
+  }
+  
+  .logos img {
+    width: 150px;
+    margin: 0 10px;
+  }
+  
+  /* テストモニアルセクション */
+  .testimonials {
+    padding: 50px 20px;
+    background-color: var(--light-bg-color);
+    text-align: center;
+  }
+  
+  .testimonials h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .testimonial h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  /* お問い合わせ */
+  .cta {
+    padding: 50px 20px;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-align: center;
+  }
+  
+  .cta p {
+    font-size: 1.5rem;
+    color: var(--white);
+  }
+  
+  .cta .cta-button {
+    background-color: var(--white);
+    color: var(--primary-color);
+  }
+  
+  /* フッター */
+  .footer {
+    padding: 20px;
+    background-color: #faf7f7;
+    color: var(--text-color);
+    text-align: center;
+  }
+  
+  .footer p {
+    margin: 10px 0;
+  }
+  
+  /* Smashについてセクション */
+  .about-smash {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: var(--light-bg-color);
+  }
+  
+  .about-smash h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .about-smash p {
+    font-size: 1.2rem;
+    line-height: 1.6;
+    margin: 0 auto;
+    max-width: 800px;
+  }
+  
+  .smash-text h1,
+  .smash-text p {
+    color: black; /* 黒色に設定 */
+  }
+  
+  /* SDGsセクションのスタイル */
+  .sdgs {
+    padding: 50px 20px;
+    background-color: #f0f0f7;
+    text-align: center;
+    overflow-x: auto; /* 横スクロールを有効にする */
+  }
+  
+  .sdgs h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .sdgs p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .sdgs-goals {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* 2列表示 */
+    gap: 20px; /* カード間の間隔 */
+    list-style: none; /* リストスタイルを消去 */
+    padding: 0; /* パディングを消去 */
+  }
+  
+  .goal {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .goal h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .goal p {
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+  
+  /* カードのホバーエフェクト */
+  .goal:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 30px var(--hover-shadow-color);
+  }
+  
+  
+  
+  /* 導入までの流れセクションのスタイル */
+  .steps {
+    padding: 50px 20px;
+    background-color: #f1f8e9;
+    text-align: center;
+  }
+  
+  .steps h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+  }
+  
+  .step-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px; /* 各ステップの間のスペース */
+  }
+  
+  .step {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px var(--shadow-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+  
+  .step p {
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  
+  .step img {
+    border-radius: 5px;
+    margin-top: 10px;
+    width: 100%;
+    max-width: 150px;
+  }
+  
+  /* カードのホバーエフェクト */
+  .step:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 30px var(--hover-shadow-color);
+  }
+  
+  /* モバイル対応 */
+  @media (max-width: 768px) {
+    .step-container {
+      grid-template-columns: 1fr; /* スマホサイズでは1列にする */
+    }
+  }
+  
+  /* タブセクション */
+  .faq {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: var(--light-bg-color);
+  }
+  
+  .faq-item {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  .faq-item h3 {
+    color: var(--primary-color);
+  }
+  
+  .faq-item p {
+    font-size: 16px;
+    line-height: 1.5;
+    color: #555;
+  }
+  
+  /* ナビゲーションバー */
+  .navbar {
+    background-color: #fafdff;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 100;
+  }
+  
+  .navbar ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* 中央寄せに変更 */
+  }
+  
+  .navbar ul li {
+    display: inline;
+  }
+  
+  .navbar ul li a {
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 20px;
+    text-decoration: none;
+  }
+  
+  .navbar ul li a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* サポート */
+  .support-system {
+    background-color: #e7f1ff; /* 薄い青色の背景 */
+    padding: 40px; /* 増やして全体の余白を広げる */
+    border-radius: 8px;
+    margin: 0; /* 余白をリセット */
+    text-align: center; /* 全体を中央揃えに */
+  }
+  
+  .support-container {
+    display: flex;
+    flex-direction: column; /* 縦に並べる */
+    align-items: center; /* カードを中央揃えに */
+  }
+  
+  .support-card {
+    background-color: white; /* カードの背景色 */
+    border: 1px solid #007bff; /* カードの枠線 */
+    border-radius: 10px; /* 角を丸める */
+    padding: 30px; /* カード内の余白を増やす */
+    margin: 20px; /* カード間のスペース */
+    width: 100%; /* カードの幅を100%に設定 */
+    max-width: 1000px; /* 最大幅をさらに増やす */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* カードの影を強調 */
+    transition: transform 0.3s, box-shadow 0.3s; /* ホバー効果のトランジション */
+  }
+  
+  .support-card:hover {
+    transform: translateY(-5px); /* ホバー時に少し上に移動 */
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* ホバー時に影を強調 */
+  }
+  
+  h2 {
+    font-size: 2rem; /* 見出しのサイズを大きく設定 */
+    color: #0056b3; /* 必要に応じて色を設定 */
+    margin: 40px 0 20px; /* 上のマージンを調整 */
+    text-align: center; /* 文字を中央揃えに */
+  }
+  
+  h3 {
+    color: #0056b3; /* カード内の見出し色 */
+    text-align: center; /* 見出しを中央揃えに */
+    font-size: 1.75rem; /* 見出しのサイズを調整 */
+    margin-bottom: 10px; /* 下のマージンを追加 */
+  }
+  
+  p {
+    margin-bottom: 10px; /* 段落の下のマージンを調整 */
+    line-height: 1.6; /* 行間を調整して読みやすく */
+    color: #555; /* テキスト色を暗めにしてコントラストを上げる */
+    text-align: center; /* 段落を中央揃えに */
+  }
+  

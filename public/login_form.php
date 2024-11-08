@@ -1,19 +1,4 @@
-<?php
-session_start();
-require_once '../classes/UserLogic.php';
 
-$result = UserLogic::checkLogin();
-if($result) {
-  header('Location: home.php');
-  return;
-}
-
-$err = $_SESSION;
-
-$_SESSION = array();
-session_destroy();
-
-?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +15,7 @@ session_destroy();
     <?php endif; ?>
   <form action="login.php" method="POST">
   <p>
-    <label for="email">メールアドレス</label><br>
+    <label for="email">管理者ID</label><br>
     <input type="email" name="email" placeholder="メールアドレス">
     <?php if (isset($err['email'])) : ?>
         <p><?php echo $err['email']; ?></p>
@@ -48,6 +33,6 @@ session_destroy();
   </p>
   </form>
   <a href="signup_form.php">新規登録はこちら</a><br>
-  <a href="start.php">ホーム画面に戻る</a>
+  <a href="loginpage.php">ホーム画面に戻る</a>
 </body>
 </html>

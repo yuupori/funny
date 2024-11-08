@@ -1,0 +1,109 @@
+/* プライマリカラー */
+:root {
+    --primary-color: #2c3e50; /* プライマリカラー */
+    --secondary-color: #ecf0f1; /* セカンダリカラー */
+    --accent-color: #2c3e50; /* アクセントカラー */
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: var(--secondary-color); /* 背景色をセカンダリカラーに設定 */
+    color: var(--primary-color);
+    margin: 0;
+    padding: 100px;
+}
+
+.container {
+    display: flex; /* フレックスレイアウトで左右に分ける */
+    align-items: center; /* 垂直方向の中央揃え */
+    justify-content: space-between; /* 左右に配置 */
+}
+
+.left-section {
+    flex: 1; /* 左側のスペース */
+}
+
+.right-section {
+    flex: 1; /* 右側のスペース */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.right-section img {
+    max-width: 80%; /* 画像を親要素に収める */
+    height: auto; /* アスペクト比を保持 */
+    border-radius: 15px; /* 画像に角丸を追加 */
+}
+
+.login-container {
+    max-width: 400px; /* ログインコンテナの最大幅 */
+    background-color: white;
+    border-radius: 15px; /* 角を丸くする */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin: auto;
+    padding: 30px; /* パディングを追加 */
+}
+
+.login-container h1 {
+    margin-bottom: 20px;
+    font-size: 2.5rem; /* タイトルのフォントサイズ */
+    color: white; /* 文字色を白に変更 */
+    background: linear-gradient(90deg, #2c3e50, #bdc3c7); /* 青とシルバーのグラデーション */
+    padding: 10px 0; /* 上下のパディング */
+    border-radius: 10px; /* 角を丸くする */
+    text-align: center; /* 中央揃え */
+}
+
+.login-container h2 {
+    margin-bottom: 15px;
+    color: var(--accent-color); /* アクセントカラー */
+    font-size: 1.8rem; /* サブヘッダーのサイズ */
+    text-align: left;
+}
+
+.login-container .form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.login-container .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    color: var(--primary-color); /* プライマリカラー */
+}
+
+.login-container .form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.login-container .form-group input:focus {
+    border-color: var(--primary-color); /* フォーカス時のボーダーカラー */
+    outline: none; /* フォーカス時のアウトラインを消す */
+}
+
+.login-container button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--accent-color); /* アクセントカラー */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.login-container button:hover {
+    background-color: #243b50; /* ホバー時の背景色 (ダークカラー) */
+}
+
+.login-container .message {
+    margin-top: 15px;
+    color: var(--accent-color); /* エラーメッセージの色 */
+}
+

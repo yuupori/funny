@@ -33,7 +33,7 @@ unset($_SESSION['login_err']);
     <input type="text" name="username" placeholder="ユーザ名">
   </p>
   <p>
-    <label for="email">メールアドレス</label><br>
+    <label for="email">管理者ID</label><br>
     <input type="email" name="email" placeholder="メールアドレス">
   </p>
   <p>
@@ -50,7 +50,7 @@ unset($_SESSION['login_err']);
   </p>
   </form>
   <a href="login_form.php">ログイン画面はこちら</a><br>
-  <a href="start.php">ホーム画面に戻る</a>
+  <a href="loginpage.php">ホーム画面に戻る</a>
   
 </body>
 </html>
