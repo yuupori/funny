@@ -1,0 +1,23 @@
+{
+    "RequestItems": { 
+       "string" : { 
+          "AttributesToGet": [ "gomibako" ],
+          "ConsistentRead": true,
+          "ExpressionAttributeNames": { 
+             "string" : "string" 
+          },
+          "Keys": [ 
+            { 
+               "PrimaryKey": { 
+                  "S": "deviceId"
+               },
+               "SortKey": {
+                  "N": "timestamp"
+               }
+            }
+         ],
+          "ProjectionExpression": "string"
+       }
+    },
+    "ReturnConsumedCapacity": "string"
+ }

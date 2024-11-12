@@ -172,6 +172,55 @@ if (!$result) {
                         });
                     </script>
                 </div>
+                
+                <?php
+// AWS SDKのオートローダーを読み込み
+require 'vendor/autoload.php';
+
+use Aws\DynamoDb\DynamoDbClient;
+use Aws\Exception\AwsException;
+
+// DynamoDB クライアントの作成
+$dynamodb = new DynamodbClient([
+    'region' => 'ap-northeast-1', // リージョンを適切に設定（例: 東京リージョン）
+    'version' => 'latest',
+    'credentials' => [
+        'key' => 'YOUR_ACCESS_KEY', // ここにアクセスキーを入力
+        'secret' => 'YOUR_SECRET_KEY' // ここにシークレットキーを入力
+    ]
+]);
+
+// 取得したいデータのキーを指定
+$tableName = 'SampleTable';
+$key = [
+    'id' => ['S' => '123'] // '123' は取得したいIDの値
+];
+
+try {
+    // データの取得
+    $result = $dynamodb->getItem([
+        'TableName' => $tableName,
+        'Key' => $key
+    ]);
+
+    // データが存在するかを確認
+    if (isset($result['Item'])) {
+        // 数値データの取得
+        $score = $result['Item']['score']['N']; // 'N' は数値を表すデータタイプ
+
+        echo "ID: " . $key['id']['S'] . "<br>";
+        echo "Score: " . $score . "<br>"; // 取得したスコアを表示
+    } else {
+        echo "データが見つかりませんでした。";
+    }
+} catch (AwsException $e) {
+    // エラーハンドリング
+    echo "エラー: " . $e->getMessage() . "\n";
+}
+?>
+
+
+
             </section>
 
             <!-- その他のタブコンテンツ -->
