@@ -40,6 +40,10 @@ if (!$result) {
 }
 
 //こっから
+$no_login_required_pages = ['homepage.php'];
+
+
+
 
   
 
@@ -66,12 +70,13 @@ if (!$result) {
 
         <div class="tabs-container">
             <nav class="tabs" role="tablist">
-                <button class="tab active" data-target="status" role="tab" aria-selected="true">ゴミステータス</button>
+                <button class="tab active" data-target="status" role="tab" aria-selected="false">ゴミステータス</button>
                 <button class="tab" data-target="analysis" role="tab" aria-selected="false">情報分析</button>
                 <button class="tab" data-target="history" role="tab" aria-selected="false">過去のデータ</button>
                 <form action="logout.php" method="post"><button class="tab" data-target="logout" role="tab" aria-selected="false" type="submit" name="logout" value="ログアウト">ログアウト</button></form>
                 
-                <a href="homepage.php"><button class="tab" data-target="question" role="tab" aria-selected="false">お問い合わせ</button></a>
+                <button class="tab otoi" data-target="question" role="tab" aria-selected="false">お問い合わせ</button>
+                <a href="homepage.php"><button class="tab" data-target="question" role="tab" aria-selected="false">Webページ</button></a>
             </nav>
 
             <!-- タブコンテンツ -->
@@ -101,8 +106,10 @@ if (!$result) {
                         </div>
                     </div>
 
+                    </div> 
                     <!-- 他のカードをデータから生成 -->
                     <script>
+                        //ゴミステータス
                         const cardData = [
                             {
                                 title: "AIテクノロジー",
@@ -170,52 +177,194 @@ if (!$result) {
                             `;
                             cardContainer.appendChild(card);
                         });
+
+
+
+                        const tabs = document.querySelectorAll('.tab');
+const contents = document.querySelectorAll('.tab-content');
+
+// 各タブにクリックイベントを設定
+tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        // アクティブタブのリセット
+        tabs.forEach(t => t.classList.remove('active'));
+        contents.forEach(c => c.classList.remove('active'));
+
+        // 新しいアクティブタブの設定
+        tab.classList.add('active');
+        const targetId = tab.getAttribute('data-target');
+        document.getElementById(targetId).classList.add('active');
+    });
+});
+
+// 各バッテリーの充填率を設定する関数
+function setBatteryLevels() {
+    const cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        const percentage = parseInt(card.querySelector('.percentage').textContent, 10);
+        const battery = card.querySelector('.battery');
+        const batteryFill = card.querySelector('.battery-fill');
+
+        // 充填率に応じてバッテリーの色を変更
+        if (percentage <= 59) {
+            battery.classList.add('low');
+        } else if (percentage >= 60 && percentage <= 79) {
+            battery.classList.add('medium');
+        } else {
+            battery.classList.add('high');
+        }
+
+        // 充填率に応じてバッテリーの幅を設定
+        batteryFill.style.width = percentage + '%';
+    });
+}
+
+// ページ読み込み時にバッテリーのレベルを設定
+document.addEventListener('DOMContentLoaded', setBatteryLevels);
+
+document.querySelectorAll('.tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        // 全てのタブとコンテンツを非アクティブにする
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+
+        // クリックされたタブをアクティブにし、関連するコンテンツを表示する
+        this.classList.add('active');
+        const targetId = this.getAttribute('data-target');
+        document.getElementById(targetId).classList.add('active');
+    });
+});
+
+// グラフを保持するためのオブジェクト
+const chartInstances = {};
+
+// グラフを初期化する関数
+function createChart(chartType, chartId, chartData) {
+    const ctx = document.getElementById(chartId).getContext('2d');
+
+    // 既存のグラフがあれば削除
+    if (chartInstances[chartId]) {
+        chartInstances[chartId].destroy();
+    }
+
+    // 新しいグラフを生成して保存
+    chartInstances[chartId] = new Chart(ctx, {
+        type: chartType,  // タブで指定されたタイプ ('bar' か 'line')
+        data: {
+            labels: ['缶', '瓶', 'ペットボトル', 'その他'],
+            datasets: [{
+                label: chartData.label,
+                data: chartData.data,
+                backgroundColor: chartType === 'bar' ? ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'] : 'rgba(54, 162, 235, 0.2)',
+                borderColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'],
+                borderWidth: 1,
+                fill: chartType === 'line' // 折れ線グラフは塗りつぶさない
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true // Y軸を0から始める
+                }
+            },
+            plugins: {
+                legend: {
+                    display: false // 凡例を非表示
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(tooltipItem) {
+                            return tooltipItem.formattedValue + ' 個'; // 数値の後に単位を追加
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+
+//情報分析
+// 各データセットの定義
+const chartsData = [
+    { id: 'trashChart1', label: 'AIアプリケーション', data: [40, 30, 20, 10] },
+    { id: 'trashChart2', label: 'AIテクノロジー', data: [50, 20, 30, 20] },
+    { id: 'trashChart3', label: '管理棟1階', data: [20, 40, 30, 10] },
+    { id: 'trashChart4', label: '北野館', data: [50, 10, 30, 10] },
+    { id: 'trashChart5', label: '管理棠3階', data: [42, 25, 37, 25] },
+    { id: 'trashChart6', label: '学生会館4F', data: [53, 40, 30, 20] }
+];
+
+// 初期表示はすべて棒グラフ
+chartsData.forEach(chart => {
+    createChart('bar', chart.id, chart);
+});
+
+// グラフ切り替えのタブイベント
+document.querySelectorAll('.chart-tab').forEach(tab => {
+    tab.addEventListener('click', function() {
+        const chartType = this.getAttribute('data-chart-type'); // 'bar' か 'line'
+        const chartId = this.getAttribute('data-chart-id');     // グラフのID
+
+        // 対応するデータを探す
+        const chartData = chartsData.find(c => c.id === chartId);
+
+        // グラフの切り替え
+        createChart(chartType, chartId, chartData);
+
+        // タブの見た目を切り替える
+        const switcher = this.parentElement;
+        switcher.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
                     </script>
-                </div>
+              
                 
                 <?php
 // AWS SDKのオートローダーを読み込み
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
 use Aws\DynamoDb\DynamoDbClient;
 use Aws\Exception\AwsException;
+
 
 // DynamoDB クライアントの作成
 $dynamodb = new DynamodbClient([
     'region' => 'ap-northeast-1', // リージョンを適切に設定（例: 東京リージョン）
     'version' => 'latest',
     'credentials' => [
-        'key' => 'YOUR_ACCESS_KEY', // ここにアクセスキーを入力
-        'secret' => 'YOUR_SECRET_KEY' // ここにシークレットキーを入力
+        'key' => getenv('AKIAVRUVPUS4RZF3UOOU'), // ここにアクセスキーを入力
+        'secret' => getenv('z9cN1gEggV+IPOLU1clLLzdYythrG1MtacJPUddQ'), // ここにシークレットキーを入力
     ]
 ]);
 
 // 取得したいデータのキーを指定
-$tableName = 'SampleTable';
+$tableName = 'gomibako';
 $key = [
-    'id' => ['S' => '123'] // '123' は取得したいIDの値
+    'id' => ['S' => 'device-001'] // '123' は取得したいIDの値
 ];
 
-try {
-    // データの取得
-    $result = $dynamodb->getItem([
-        'TableName' => $tableName,
-        'Key' => $key
-    ]);
 
-    // データが存在するかを確認
-    if (isset($result['Item'])) {
-        // 数値データの取得
-        $score = $result['Item']['score']['N']; // 'N' は数値を表すデータタイプ
 
-        echo "ID: " . $key['id']['S'] . "<br>";
-        echo "Score: " . $score . "<br>"; // 取得したスコアを表示
-    } else {
-        echo "データが見つかりませんでした。";
-    }
-} catch (AwsException $e) {
-    // エラーハンドリング
-    echo "エラー: " . $e->getMessage() . "\n";
+$tableName = 'gomibako'; 
+
+$result = $client->getItem([
+    'gomibako' => $tableName,
+    'Key' => [
+        'deviceId' => [
+            'S' => 'device-001'
+        ]
+    ]
+        ]);
+
+if (isset($result['Item'])) {
+    $item = $result['Item'];
+    echo "User name: " . $item['gomibako']['S'] . "\n";
+} else {
+    echo "Item not found.\n";
 }
 ?>
 
@@ -224,7 +373,7 @@ try {
             </section>
 
             <!-- その他のタブコンテンツ -->
-            <section class="tab-content" id="analysis">
+            <section class="tab-content active" id="analysis">
                 <div class="analysis-cards">
                     <!-- 各ゴミ箱のカード -->
                     <div class="card">
@@ -420,153 +569,15 @@ header h1 {
 }
 </style>
 
-<script>// タブの切り替え
-document.querySelectorAll('.tab').forEach(tab => {
-    tab.addEventListener('click', function() {
-        // 全てのタブとコンテンツを非アクティブにする
-        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
 
-        // クリックされたタブをアクティブにし、関連するコンテンツを表示する
-        this.classList.add('active');
-        const targetId = this.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('active');
-    });
-});
-
-// グラフを保持するためのオブジェクト
-const chartInstances = {};
-
-// グラフを初期化する関数
-function createChart(chartType, chartId, chartData) {
-    const ctx = document.getElementById(chartId).getContext('2d');
-
-    // 既存のグラフがあれば削除
-    if (chartInstances[chartId]) {
-        chartInstances[chartId].destroy();
-    }
-
-    // 新しいグラフを生成して保存
-    chartInstances[chartId] = new Chart(ctx, {
-        type: chartType,  // タブで指定されたタイプ ('bar' か 'line')
-        data: {
-            labels: ['缶', '瓶', 'ペットボトル', 'その他'],
-            datasets: [{
-                label: chartData.label,
-                data: chartData.data,
-                backgroundColor: chartType === 'bar' ? ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'] : 'rgba(54, 162, 235, 0.2)',
-                borderColor: ['#ff6384', '#36a2eb', '#ffce56', '#4bc0c0'],
-                borderWidth: 1,
-                fill: chartType === 'line' // 折れ線グラフは塗りつぶさない
-            }]
-        },
-        options: {
-            responsive: true,
-            scales: {
-                y: {
-                    beginAtZero: true // Y軸を0から始める
-                }
-            },
-            plugins: {
-                legend: {
-                    display: false // 凡例を非表示
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return tooltipItem.formattedValue + ' 個'; // 数値の後に単位を追加
-                        }
-                    }
-                }
-            }
-        }
-    });
-}
-
-// 各データセットの定義
-const chartsData = [
-    { id: 'trashChart1', label: 'AIアプリケーション', data: [40, 30, 20, 10] },
-    { id: 'trashChart2', label: 'AIテクノロジー', data: [50, 20, 30, 20] },
-    { id: 'trashChart3', label: '管理棟1階', data: [20, 40, 30, 10] },
-    { id: 'trashChart4', label: '北野館', data: [50, 10, 30, 10] },
-    { id: 'trashChart5', label: '管理棠3階', data: [42, 25, 37, 25] },
-    { id: 'trashChart6', label: '学生会館4F', data: [53, 40, 30, 20] }
-];
-
-// 初期表示はすべて棒グラフ
-chartsData.forEach(chart => {
-    createChart('bar', chart.id, chart);
-});
-
-// グラフ切り替えのタブイベント
-document.querySelectorAll('.chart-tab').forEach(tab => {
-    tab.addEventListener('click', function() {
-        const chartType = this.getAttribute('data-chart-type'); // 'bar' か 'line'
-        const chartId = this.getAttribute('data-chart-id');     // グラフのID
-
-        // 対応するデータを探す
-        const chartData = chartsData.find(c => c.id === chartId);
-
-        // グラフの切り替え
-        createChart(chartType, chartId, chartData);
-
-        // タブの見た目を切り替える
-        const switcher = this.parentElement;
-        switcher.querySelectorAll('.chart-tab').forEach(t => t.classList.remove('active'));
-        this.classList.add('active');
-    });
-});</script>
             </section>
-        </div>
+            </div>
     </div>
-
-    <script>// タブの要素を取得
-const tabs = document.querySelectorAll('.tab');
-const contents = document.querySelectorAll('.tab-content');
-
-// 各タブにクリックイベントを設定
-tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-        // アクティブタブのリセット
-        tabs.forEach(t => t.classList.remove('active'));
-        contents.forEach(c => c.classList.remove('active'));
-
-        // 新しいアクティブタブの設定
-        tab.classList.add('active');
-        const targetId = tab.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('active');
-    });
-});
-
-// 各バッテリーの充填率を設定する関数
-function setBatteryLevels() {
-    const cards = document.querySelectorAll('.card');
-
-    cards.forEach(card => {
-        const percentage = parseInt(card.querySelector('.percentage').textContent, 10);
-        const battery = card.querySelector('.battery');
-        const batteryFill = card.querySelector('.battery-fill');
-
-        // 充填率に応じてバッテリーの色を変更
-        if (percentage <= 59) {
-            battery.classList.add('low');
-        } else if (percentage >= 60 && percentage <= 79) {
-            battery.classList.add('medium');
-        } else {
-            battery.classList.add('high');
-        }
-
-        // 充填率に応じてバッテリーの幅を設定
-        batteryFill.style.width = percentage + '%';
-    });
-}
-
-// ページ読み込み時にバッテリーのレベルを設定
-document.addEventListener('DOMContentLoaded', setBatteryLevels);
+          
+    
 
 
 
-</script> <!-- JSファイル -->
 </body>
 </html>
 

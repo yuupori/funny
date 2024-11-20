@@ -1,20 +1,4 @@
-<?php
-session_start();
-require_once '../classes/UserLogic1.php';
 
-
-$result = UserLogic::checkLogin();
-if($result) {
-  header('Location: home1.php');
-  return;
-}
-
-
-$err = $_SESSION;
-
-$_SESSION = array();
-session_destroy();
- ?>
 
 
 <!DOCTYPE html>
