@@ -336,8 +336,8 @@ $dynamodb = new DynamodbClient([
     'region' => 'ap-northeast-1', // リージョンを適切に設定（例: 東京リージョン）
     'version' => 'latest',
     'credentials' => [
-        'key' => getenv('AKIAVRUVPUS4RZF3UOOU'), // ここにアクセスキーを入力
-        'secret' => getenv('z9cN1gEggV+IPOLU1clLLzdYythrG1MtacJPUddQ'), // ここにシークレットキーを入力
+        // 'key' => getenv('AKIAVRUVPUS4RZF3UOOU'), // ここにアクセスキーを入力
+        // 'secret' => getenv('z9cN1gEggV+IPOLU1clLLzdYythrG1MtacJPUddQ'), // ここにシークレットキーを入力
     ]
 ]);
 
