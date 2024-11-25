@@ -5,8 +5,8 @@ use Aws\DynamoDb\DynamoDbClient;
 use Aws\DynamoDb\Exception\DynamoDbException;
 
 // AWS認証情報の設定（環境変数の場合）
-// $accessKeyId = getenv('AKIAVRUVPUS47LBUA3CF');
-// $secretAccessKey = getenv('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');
+$accessKeyId = getenv('AKIAVRUVPUS47LBUA3CF');
+$secretAccessKey = getenv('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');
 
 $sdk = new Aws\Sdk([
     'region'   => 'ap-northeast-1',
