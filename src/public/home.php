@@ -335,9 +335,7 @@ use Aws\Exception\AwsException;
 $dynamodb = new DynamodbClient([
     'region' => 'ap-northeast-1', // リージョンを適切に設定（例: 東京リージョン）
     'version' => 'latest',
-    'credentials' => [
-       
-    ]
+    
 ]);
 
 // 取得したいデータのキーを指定
