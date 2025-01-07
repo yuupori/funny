@@ -4,7 +4,7 @@ require_once '../classes/UserLogic.php';
 require_once '../functions.php';
 
 //　ログインしているか判定し、していなかったら新規登録画面へ返す
-/*$result = UserLogic::checkLogin();
+$result = UserLogic::checkLogin();
 
 if (!$result) {
   $_SESSION['login_err'] = 'ユーザを登録してログインしてください！';
@@ -12,7 +12,7 @@ if (!$result) {
   return;
 }
 
-$login_user = $_SESSION['login_gomi']; */
+$login_user = $_SESSION['login_gomi']; 
 
 //こっから
 $err = [];
@@ -44,10 +44,8 @@ $no_login_required_pages = ['homepage.php'];
 
 
 
-
-  
-
 ?>
+
 
 
 
