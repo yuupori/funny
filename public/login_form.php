@@ -1,4 +1,19 @@
+<?php
+session_start();
+require_once '../classes/UserLogic.php';
 
+$result = UserLogic::checkLogin();
+if($result) {
+  header('Location: home.php');
+  return;
+}
+
+$err = $_SESSION;
+
+$_SESSION = array();
+session_destroy();
+
+?>
 
 <!DOCTYPE html>
 <html lang="en">

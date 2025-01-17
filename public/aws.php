@@ -16,6 +16,3 @@ $sdk = new Aws\Sdk([
 
 // Creating an Amazon DynamoDb client will use the "eu-central-1" AWS Region
 $client = $sdk->createDynamoDb();
-
-
-
